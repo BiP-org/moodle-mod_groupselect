@@ -865,11 +865,19 @@ if (empty ( $groups )) {
         $strgroup,
         $strgroupdesc
     ];
-    if ($viewothers || $groupselect->showcolamount != -1) {
-        $table->head[] = $strcount;
-    }
-    if ($viewothers || $groupselect->showcolmembers != -1) {
+    if ($viewothers || !empty($groupselect->showcolmembers)) {
         $table->head[] = $strmembers;
+    } else {
+        for ($a = 0; $a < count($data); $a++) {
+            array_splice($data[$a], 3, 1);
+        }
+    }
+    if ($viewothers || !empty($groupselect->showcolamount)) {
+        $table->head[] = $strcount;
+    } else {
+        for ($a = 0; $a < count($data); $a++) {
+            array_splice($data[$a], 2, 1);
+        }
     }
     $table->head[] = '';
 
